@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+@keyframes pl-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pl-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @keyframes pl-modal-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+.pl-animate-modal {
+  animation: pl-modal-in 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.pl-animate-backdrop {
+  animation: pl-backdrop-in 0.28s ease-out forwards;
+}
+
+.pb-safe {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 0.75rem);
+}
+
+.mb-safe {
+  margin-bottom: calc(env(safe-area-inset-bottom) + 0.25rem);
+}
+
+/* PocketLedger “cyber-clean” surfaces */
+.pl-surface-card {
+  border-radius: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(255, 255, 255, 0.02) 45%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 0 1px rgba(34, 197, 94, 0.06),
+    0 20px 50px -20px rgba(0, 0, 0, 0.65);
+}
+
+.pl-text-eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(90, 240, 176, 0.95);
+}
+
+.pl-glow-neon {
+  box-shadow:
+    0 0 20px rgba(34, 197, 94, 0.22),
+    0 0 44px rgba(34, 197, 94, 0.1);
+}

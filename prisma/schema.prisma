@@ -1,0 +1,63 @@
+// PocketLedger — SQLite for local dev (DATABASE_URL=file:./dev.db).
+// Push schema: `npx prisma db push` · Generate client: `npx prisma generate`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+}
+
+model User {
+  id                 String        @id @default(cuid())
+  email              String        @unique
+  passwordHash       String        @map("password_hash")
+  name               String?
+  /// ISO 4217 code for display (e.g. USD, EUR, GBP).
+  preferredCurrency String        @default("USD") @map("preferred_currency")
+  createdAt         DateTime      @default(now()) @map("created_at")
+  updatedAt         DateTime      @updatedAt @map("updated_at")
+  categories        Category[]
+  transactions      Transaction[]
+
+  @@map("users")
+}
+
+model Category {
+  id           String          @id @default(cuid())
+  userId       String          @map("user_id")
+  name         String
+  /// Whether this category is used for income or expense entries.
+  type         TransactionType
+  createdAt    DateTime        @default(now()) @map("created_at")
+  user         User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+
+  @@unique([userId, name, type])
+  @@map("categories")
+}
+
+model Transaction {
+  id          String          @id @default(cuid())
+  userId      String          @map("user_id")
+  categoryId  String?         @map("category_id")
+  type        TransactionType
+  amount      Decimal
+  description String?
+  /// Business date of the transaction (not necessarily createdAt).
+  date        DateTime
+  createdAt   DateTime        @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category    Category?       @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  @@index([userId, date])
+  @@map("transactions")
+}
