@@ -1,12 +1,12 @@
-// PocketLedger — SQLite for local dev (DATABASE_URL=file:./dev.db).
-// Push schema: `npx prisma db push` · Generate client: `npx prisma generate`
+// PocketLedger — PostgreSQL for persistent local and production data.
+// Sync schema: `npx prisma db push` · Generate client: `npx prisma generate`
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
