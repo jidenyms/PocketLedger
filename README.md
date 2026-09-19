@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PocketLedger
 
-## Getting Started
+A full-stack personal finance dashboard for tracking income, expenses, categories, and financial trends in one place.
 
-First, run the development server:
+![PocketLedger dashboard](public/mockups/Screenshot_2026-04-05_at_10.11.50_PM-5b2d6660-8c7c-4cd9-a113-0b5397ec48ec.png)
+
+## Highlights
+
+- Secure account creation and JWT-based authentication
+- Income and expense tracking with custom categories
+- Dashboard summaries and interactive charts
+- Daily, weekly, and monthly financial reports
+- Month-over-month and week-over-week insights
+- Transaction export
+- Preferred-currency settings
+- Responsive interface for desktop and mobile
+
+## Tech stack
+
+- **Frontend:** Next.js 16, React 19, TypeScript, Tailwind CSS
+- **Data visualization:** Recharts
+- **Backend:** Next.js route handlers and service/controller architecture
+- **Database:** Prisma with SQLite locally and PostgreSQL support
+- **Validation and state:** Zod, Zustand
+- **Authentication:** JWT stored in HTTP-only cookies
+
+## Getting started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/jidenyms/PocketLedger.git
+cd PocketLedger
+npm install
+```
+
+### 2. Configure the environment
+
+```bash
+cp .env.example .env
+```
+
+The default configuration uses a local SQLite database. Replace the example JWT secret before deploying the application.
+
+### 3. Prepare the database
+
+```bash
+npx prisma db push
+npm run db:seed
+```
+
+### 4. Start the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Demo account
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+After seeding the database:
 
-## Learn More
+- Email: `demo@pocketledger.com`
+- Password: `Demo123!`
 
-To learn more about Next.js, take a look at the following resources:
+> The demo credentials are intended for local development only.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Available scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Generate Prisma Client and create a production build |
+| `npm run start` | Start the production server |
+| `npm run lint` | Run ESLint |
+| `npm run db:push` | Sync the Prisma schema with the database |
+| `npm run db:migrate` | Create and apply a development migration |
+| `npm run db:studio` | Open Prisma Studio |
+| `npm run db:seed` | Seed demo data |
 
-## Deploy on Vercel
+## Author
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built by [Olajide Balogun](https://github.com/jidenyms), a Computer Science student and frontend developer interested in creating useful software for real human needs.
